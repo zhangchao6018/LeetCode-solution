@@ -18,7 +18,24 @@ import java.util.Set;
 
 
 public class LengthOfLongestSubstring {
-    //todo 当传入""  错误 ->预期 1 结果:0
+
+    public static int lengthOfLongestSubstring2(String s) {
+        int maxLength = 0;
+        char[] chars = s.toCharArray();
+        int leftIndex = 0;
+        for (int j = 0; j < chars.length; j++) {
+            for (int innerIndex = leftIndex; innerIndex < j; innerIndex++) {
+                if (chars[innerIndex] == chars[j]) {
+                    maxLength = Math.max(maxLength, j - leftIndex);
+                    leftIndex = innerIndex + 1;
+                    break;
+                }
+            }
+        }
+        return Math.max(chars.length - leftIndex, maxLength);
+    }
+
+
     public static int lengthOfLongestSubstring(String s) {
         if ("".equals(s)) {
             return 0;
@@ -28,12 +45,20 @@ public class LengthOfLongestSubstring {
             return 1;
         }
         int result = 1;
+        return getResult(s, result);
+    }
+
+    private static int getResult(String s, int result) {
+        if ("".equals(s)){
+            return result;
+        }
         List<String> lis = Arrays.asList(s.split(""));
         Set set = new HashSet();
         for (int i = 0 ;  i< lis.size() ; i++) {
             String s1 = lis.get(i);
             if (!set.contains(s1)) {
-                boolean add = set.add(s1);
+                set.add(s1);
+                result = result>set.size()?result:set.size();
             }else {
                 //重复了->统计size
                 int size = set.size();
@@ -41,16 +66,16 @@ public class LengthOfLongestSubstring {
                 //清空set
                 set.clear();
                 set.add(s1);
+                //重置入参s
             }
         }
-
-        return result;
-
+        s = s.substring(1);
+        return getResult(s,result);
     }
 
     public static void main(String[] args) {
 //        String s = "hhjajayyiqww";
-        String s = "";
-        System.out.println(lengthOfLongestSubstring(s));
+        String s = "dvdf";
+        System.out.println(lengthOfLongestSubstring2(s));
     }
 }
