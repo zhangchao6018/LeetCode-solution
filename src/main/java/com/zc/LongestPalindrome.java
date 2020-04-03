@@ -55,10 +55,51 @@ public class LongestPalindrome {
 
         return s.substring(beginTmp,endTmp+1);
     }
+    public static String longestPalindrome2(String s){
+        if (s.length() < 2) {
+            return s;
+        }
+        char[] chars = s.toCharArray();
+        //装符合回文起止索引的容器
+        int [] container = new int[2];
+        for (int i = 0; i < chars.length; i++) {
+            findMore(i,chars,container);
+        }
+
+        return s.substring(container[0],container[1]+1);
+    }
+
+    private static void findMore(int i, char[] chars, int[] container) {
+        //根据索引值初始化
+        int begin =i-1;
+        int end =i+1;
+
+        while (begin>=0 &&
+                chars.length >= end+1 &&
+                chars[begin] == chars[end]
+        )
+        {
+            if (container[1]-container[0]<=end-begin){
+                container[0] = begin;
+                container[1] = end;
+            }
+            begin -- ;
+            end ++;
+
+        }
+
+
+        if (container[0]==container[1]){
+            container[0] = i;
+            container[1] = i;
+        }
+    }
 
     public static void main(String[] args) {
 //        longestPalindrome("fsssssssssssssssssssssssssssssssssssssssssss");
-        System.out.println(longestPalindrome("fssssssssssssssssasssssssssssssssssssssssssss"));
+        //System.out.println(longestPalindrome("fssssssssssssssssasssssssssssssssssssssssssss"));
+//        System.out.println(longestPalindrome2("fssssssssssssssssasssssssssssssssssssssssssss"));
+        System.out.println(longestPalindrome2("aabb"));
         System.out.println();
     }
 }
