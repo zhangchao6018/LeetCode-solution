@@ -1,7 +1,7 @@
 package com.zc;
 
 /**
- * @描述:
+ * @描述:  利用自己写的二分搜索树完成  ->其实用set就可以很容易的实现
  * @author: zhangchao
  * @date: 4/14/20 8:22 上午
  *
@@ -32,24 +32,111 @@ package com.zc;
  * https://leetcode-cn.com/problems/unique-morse-code-words
  **/
 public class UniqueMorseRepresentations {
-    private String [] con;
-    public int uniqueMorseRepresentations(String[] words) {
-        return 0;
+    //字典
+    private static String [] container = {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+
+    public static int uniqueMorseRepresentations(String[] words) {
+        BST<String> bst = new BST();
+
+        for (int i = 0; i < words.length; i++) {
+            StringBuilder builder = new StringBuilder();
+            //每个字符串
+            String word = words[i];
+            for (int x = 0; x < word.length(); x++) {
+                //每个字符
+                char c = word.charAt(x);
+                //ASC码
+                byte b =(byte)c;
+                int index = b - 97;
+                String s = container[index];
+                builder.append(s);
+            }
+            bst.add(builder.toString());
+        }
+        return bst.size;
     }
 
     public static void main(String[] args) {
-        int a = getAsc("b");
-        System.out.println(a);
+        String[] words = {"gin", "zen", "gig", "msg"};
+        int i = uniqueMorseRepresentations(words);
+        System.out.println(i);
     }
+
+
     /**
-     * 字符转ASC
-     *
-     * @param st
-     * @return
+     * 二分搜索树
+     * @param <E>
      */
-    public static int getAsc(String st) {
-        byte[] gc = st.getBytes();
-        int ascNum = (int) gc[0];
-        return ascNum;
+    public static class BST<E extends Comparable<E>> {
+
+        private class Node {
+            public E e;
+            public Node left, right;
+
+            public Node(E e) {
+                this.e = e;
+                left = null;
+                right = null;
+            }
+        }
+
+        private Node root;
+        private int size;
+
+        public BST(){
+            root = null;
+            size = 0;
+        }
+
+        public int size(){
+            return size;
+        }
+
+        public boolean isEmpty(){
+            return size == 0;
+        }
+
+        // 向二分搜索树中添加新的元素e
+        public void add(E e){
+            if (root==null){
+                root = new Node(e);
+                size++;
+            }else
+                add(root, e);
+        }
+
+        private void add(Node node, E e) {
+            //思考一下 为什么这两步是多余的
+//        // 直接赋值
+//        if (node == null){
+//            System.out.println("辅助1");
+//            node = new Node(e);
+//            return;
+//        }
+//        //赋值
+//        if (node.e == null) {
+//            System.out.println("辅助2");
+//            node = new Node(e);
+//            return;
+//        }
+            if (node.e.compareTo(e) > 0 && node.left==null){
+                node.left= new Node(e);
+                size++;
+                return;
+            }
+            else if ( node.e.compareTo(e) <0 && node.right==null){
+                node.right = new Node(e);;
+                size++;
+                return;
+            }
+            if ( node.e.compareTo(e) > 0 ){
+                add(node.left,e);
+            }
+            if ( node.e.compareTo(e) < 0 ){
+                add(node.right,e);
+            }
+        }
+
     }
+
 }
