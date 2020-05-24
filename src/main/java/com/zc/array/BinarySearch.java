@@ -22,6 +22,7 @@ public class BinarySearch {
         int r = n-1;
         while (l<=r){
             for (int i = l; i <= r; i--) {
+                // 避免整形溢出  int mid = l + (r - l) / 2;
                 int mid = (l+r)/2;
                 if (arr[mid].compareTo(target)==0)
                     return mid;
