@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * todo 第125,344,345,11题
  * 描述:
  * 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数。
  *
@@ -37,7 +38,24 @@ public class TwoSum167 {
         //3. 对撞指针法 根据numbers[i]+numbers[j] 跟target比较 小于->i++   大于-> j--  直到等于
         //return m3(numbers, target);
 
-        //4. 二分搜索法
+        //4. 二分搜索法(递归)
+//        return m4(numbers, target);
+
+        //5. 二分搜索法(非递归)
+        return m5(numbers, target);
+    }
+
+    private int[] m5(int[] numbers, int target) {
+        for (int i = 0; i < numbers.length; i++) {
+            int index = binarySearch(numbers.length, target - numbers[i], numbers);
+            if (index!=-1){
+                return new int[]{i+1,index+1};
+            }
+        }
+        return null;
+    }
+
+    private int[] m4(int[] numbers, int target) {
         for (int i = 0; i < numbers.length; i++) {
             int targetIndex = binarySearch(numbers[i], target, i + 1, numbers.length - 1, numbers);
             if (targetIndex!=-1){
@@ -45,6 +63,29 @@ public class TwoSum167 {
             }
         }
         return null;
+    }
+
+    /**
+     *
+     * @param len 数组长度
+     * @param target 目标值
+     * @param numbers 数组
+     * @return
+     */
+    private int binarySearch(int len , int target , int[] numbers) {
+        int l =0;
+        int r =len;
+        int mid = (l+r)/2;
+        while (r>l){
+            if (numbers[mid]==target){
+                return mid;
+            }else if (numbers[mid]>target){
+                mid = (l+mid)/2;
+            }else {
+                mid = (r+mid)/2;
+            }
+        }
+        return -1;
     }
 
     /**
@@ -61,8 +102,13 @@ public class TwoSum167 {
             return -1;
         }
         int midIdx = (beginIdx+endIdx)/2;
+        if (beginIdx==endIdx){
+            System.out.println((source + numbers[beginIdx]));
+            return (source + numbers[beginIdx]) == target?beginIdx:-1;
+        }
         if (beginIdx+1==endIdx){
-            return binarySearch(source,target,beginIdx+1,endIdx,numbers);
+
+            return binarySearch(source,target,beginIdx,beginIdx,numbers)==-1?binarySearch(source,target,endIdx,endIdx,numbers):binarySearch(source,target,beginIdx,beginIdx,numbers);
         }
         if (source + numbers[midIdx] == target)
         return midIdx;
@@ -73,6 +119,13 @@ public class TwoSum167 {
         }
     }
 
+    /**
+     * 时间复杂度:O(n)
+     * 空间复杂度:O(1)
+     * @param numbers
+     * @param target
+     * @return
+     */
     private int[] m3(int[] numbers, int target) {
         int i =0;
         int j =numbers.length-1;
@@ -113,8 +166,10 @@ public class TwoSum167 {
 
     public static void main(String[] args) {
        // int[] arr = new int[]{2, 7, 11, 15};
-        int[] arr = new int[]{2, 3,4};
-        int[] ints = new TwoSum167().twoSum(arr, 6);
+//        int[] arr = new int[]{2,7,11,15};
+//        int[] ints = new TwoSum167().twoSum(arr, 9);
+        int[] arr = new int[]{2,7,11,15};
+        int[] ints = new TwoSum167().twoSum(arr, 9);
         System.out.println(ints);
     }
 }
