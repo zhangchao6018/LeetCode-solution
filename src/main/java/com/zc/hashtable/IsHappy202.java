@@ -29,7 +29,7 @@ import java.util.Set;
  * @Author: zhangchao
  * @Date: 8/8/20 8:41 下午
  **/
-public class IsHappy {
+public class IsHappy202 {
     public boolean isHappy(int n) {
 
         return r2(n);
@@ -94,9 +94,9 @@ public class IsHappy {
     }
     //测试案例: 7   10   3
     public static void main(String[] args) {
-        boolean happy = new IsHappy().isHappy(7);
+        boolean happy = new IsHappy202().isHappy(7);
         System.out.println("result:"+happy);
-        int sum = new IsHappy().getSum(101);
+        int sum = new IsHappy202().getSum(101);
         System.out.println(sum);
     }
 

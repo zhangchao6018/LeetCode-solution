@@ -30,7 +30,7 @@ import java.util.Map;
  * @Author: zhangchao
  * @Date: 8/8/20 8:01 下午
  **/
-public class IsAnagram {
+public class IsAnagram242 {
     public boolean isAnagram(String s, String t) {
         return s2(s, t);
     }
@@ -88,6 +88,6 @@ public class IsAnagram {
     }
 
     public static void main(String[] args) {
-        System.out.println(new IsAnagram().isAnagram("anagram", "nagaram"));
+        System.out.println(new IsAnagram242().isAnagram("anagram", "nagaram"));
     }
 }

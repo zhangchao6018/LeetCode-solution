@@ -27,6 +27,10 @@ import java.util.*;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/intersection-of-two-arrays-ii
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
+ *
+ * todo 242     202     290     205     451
+ *
  * @Author: zhangchao
  * @Date: 8/8/20 4:47 下午
  **/
@@ -36,6 +40,33 @@ public class Intersect350 {
         return firstSolution(nums1, nums2);
     }
 
+    /**
+     * 优化后
+     * @param nums1
+     * @param nums2
+     * @return
+     */
+    private int[] solution3(int[] nums1, int[] nums2) {
+        //<数字+频率>
+        Map<Integer, Integer> map = new HashMap();
+
+        for (int i = 0; i < nums1.length; i++) {
+            if (map.containsKey(nums1[i])){
+                map.put(nums1[i],map.get(nums1[i])+1);
+            }else {
+                map.put(nums1[i],1);
+            }
+        }
+        int resultIdx =0;
+        for (int i = 0; i < nums2.length; i++) {
+            if (map.containsKey(nums2[i]) && map.get(nums2[i])>0){
+                nums1[resultIdx++]=nums2[i];
+                map.put(nums2[i],map.get(nums2[i])-1);
+            }
+        }
+
+        return Arrays.copyOf(nums1,resultIdx);
+    }
     /**
      * 优化后
      * @param nums1
