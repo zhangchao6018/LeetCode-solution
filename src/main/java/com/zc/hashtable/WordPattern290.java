@@ -38,27 +38,32 @@ import java.util.Set;
  **/
 public class WordPattern290 {
     public boolean wordPattern(String pattern, String str) {
-        return s2(pattern, str);
+        return s3(pattern, str);
     }
 
-    /**
-     *
-     * @param pattern
-     * @param str
-     * @return
-     */
+
+    private boolean s3(String pattern, String str) {
+        String[] sSplit = str.split(" ");
+        if (pattern.length()!=sSplit.length)
+            return false;
+
+        Map map = new HashMap<>();
+        for (Integer i = 0; i < sSplit.length; i++) {
+            //HashMap.put 返回old value
+            if (map.put(sSplit[i],i)!=map.put(pattern.charAt(i),i)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private boolean s2(String pattern, String str) {
         //<pattern的元素,str的元素>
         Map<String,String> map = new HashMap();
         String[] pSplit = pattern.split("");
         String[] sSplit = str.split(" ");
-        //题意表述有问题,作此规避
-        //        String pattern= "";
-        //        String str= "beef";
-        if(pattern.equals("")){
-            return sSplit.length==0;
-        }
-        if (pSplit.length!=sSplit.length)
+        if (pattern.length()!=sSplit.length)
             return false;
 
         for (int i = 0; i < pSplit.length; i++) {
@@ -115,14 +120,17 @@ public class WordPattern290 {
 
     public static void main(String[] args) {
 
+        Object a = "a";
+        Object b = 'a';
+        System.out.println(a==b);
 //        String pattern= "abba";
 //        String str= "dog cat cat dog";
         //"abba"
         //"dog dog dog dog"
-//        String pattern= "abba";
-//        String str= "dog dog dog dog";
-        String pattern= "";
-        String str= "beef";
+        String pattern= "abba";
+        String str= "dog dog dog dog";
+//        String pattern= "";
+//        String str= "beef";
         System.out.println(new WordPattern290().wordPattern(pattern, str));
     }
 
