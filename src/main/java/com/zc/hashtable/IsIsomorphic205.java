@@ -56,6 +56,24 @@ public class IsIsomorphic205 {
         return true;
     }
 
+    private boolean f2(String s, String t) {
+        return compareTo(s,t) && compareTo(t,s);
+    }
+
+    private boolean compareTo(String t, String s) {
+        Map<Character,Character> map = new HashMap();
+        for (int i=0; i<t.length(); i++){
+            char key = t.charAt(i);
+            char value = s.charAt(i);
+            if (map.containsKey(key)){
+                if (map.get(key) != value){
+                    return false;
+                }
+            }
+            map.put(key,value);
+        }
+        return true;
+    }
     public static void main(String[] args) {
         String s = "egg";
         String t = "add";
