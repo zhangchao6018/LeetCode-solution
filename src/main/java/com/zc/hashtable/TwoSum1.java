@@ -22,15 +22,19 @@ import java.util.Map;
  * 来源：力扣（LeetCode）
  * 链接：https://leetcode-cn.com/problems/two-sum
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
+ *
+ * 15   18  16
  * @Author: zhangchao
  **/
 public class TwoSum1 {
     public int[] twoSum(int[] nums, int target) {
-        return sb(nums, target);
+        return f1(nums, target);
     }
 
 
-    private int[] sb(int[] nums, int target) {
+    // 时间复杂度：O(n)
+    // 空间复杂度：O(n)
+    private int[] f1(int[] nums, int target) {
         Map<Integer,Integer> map = new HashMap();
 
         int[] res = new int[2];
@@ -40,6 +44,7 @@ public class TwoSum1 {
             if (map.containsKey(temp) && map.get(temp)!=i){
                 res[0] = i;
                 res[1] = map.get(temp);
+                return res;
             }
             map.put(num,i);
         }
