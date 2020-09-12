@@ -22,6 +22,11 @@ public class ReverseList206 {
         return f2(head);
     }
 
+    /**
+     * 递归
+     * @param head
+     * @return
+     */
     private ListNode f2(ListNode head) {
         //校验
         if (head == null){
@@ -43,6 +48,12 @@ public class ReverseList206 {
         cur.next = null;
         return  newHead;
     }
+
+    /**
+     * 循环
+     * @param head
+     * @return
+     */
     private ListNode f1(ListNode head) {
         ListNode pre = null;
         ListNode cur = head;
