@@ -16,7 +16,7 @@ package com.zc.linkedlist;
  * 链接：https://leetcode-cn.com/problems/reverse-linked-list
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  *
- * todo 92
+ * todo 92  83  86  328  2  445
  * @Author: zhangchao
  **/
 public class ReverseList206 {
