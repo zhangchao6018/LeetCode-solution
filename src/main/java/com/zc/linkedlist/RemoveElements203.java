@@ -12,9 +12,34 @@ package com.zc.linkedlist;
  **/
 public class RemoveElements203 {
     public ListNode removeElements(ListNode head, int val) {
-        return f2(head, val);
+        return f3(head, val);
     }
 
+    /**
+     * 虚拟头节点
+     * 解决头节点和非头节点代码处理逻辑不一致问题
+     * @param head
+     * @param val
+     * @return
+     */
+    private ListNode f3(ListNode head, int val) {
+        if (head == null){
+            return null;
+        }
+        //虚拟头节点
+        ListNode dummyHead = new ListNode(0);
+        dummyHead.next = head;
+        ListNode cur = dummyHead;
+        while (cur!=null){
+            if (cur.next != null && cur.next.val == val) {
+                //该情况相当于更新了next节点，因此无需手动更新cur
+                cur.next = cur.next.next;
+            }else {
+                cur = cur.next;
+            }
+        }
+        return dummyHead.next;
+    }
     private ListNode f2(ListNode head, int val) {
         if (head == null){
             return null;
