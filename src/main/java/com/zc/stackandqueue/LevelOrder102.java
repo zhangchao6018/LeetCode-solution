@@ -121,7 +121,5 @@ public class LevelOrder102 {
         root.right.left = new TreeNode(15);
         List<List<Integer>> lists = new LevelOrder102().levelOrder(root);
         System.out.println(lists);
-        StringBuilder stringBuilder;
-        StringBuffer stringBuffer;
     }
 }
