@@ -52,7 +52,7 @@ public class LevelOrder102 {
             TreeNode key = first.getKey();
             //对应res的索引
             Integer level = first.getValue();
-            //初始化
+            //每一层初始化
             if (level == res.size()){
                 List<Integer> list = new ArrayList<>();
                 list.add(key.val);
@@ -121,5 +121,7 @@ public class LevelOrder102 {
         root.right.left = new TreeNode(15);
         List<List<Integer>> lists = new LevelOrder102().levelOrder(root);
         System.out.println(lists);
+        StringBuilder stringBuilder;
+        StringBuffer stringBuffer;
     }
 }
