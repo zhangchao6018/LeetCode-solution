@@ -29,15 +29,43 @@ import java.util.List;
  * @Author: zhangchao
  **/
 public class BinaryTreePaths257 {
+
     public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<>();
+        if (root == null)
+            return res;
+        getChild(root,"",res);
+        return res;
+    }
+
+    /**
+     *
+     * @param cur         当前节点
+     * @param res         最终返回结果
+     * @param fatherPath  当前节点的串
+     */
+    private void getChild(TreeNode cur, String fatherPath, List<String> res) {
+        if (cur == null)
+            return;
+        StringBuilder builder = new StringBuilder(fatherPath);
+        builder.append(cur.val);
+
+        if (cur.left == null && cur.right == null)
+            res.add(builder.toString());
+        builder.append("->");
+        getChild(cur.left,builder.toString(),res);
+        getChild(cur.right,builder.toString(),res);
+    }
+
+    public List<String> f1(TreeNode root) {
         List<String> res = new ArrayList<>();
         if (root == null)
             return res;
         if (root.left == null && root.right == null){
             res.add(root.val+"");
         }
-        List<String> lList = binaryTreePaths(root.left);
-        List<String> rList = binaryTreePaths(root.right);
+        List<String> lList = f1(root.left);
+        List<String> rList = f1(root.right);
         for (String s : lList) {
             res.add(root.val+"->"+s);
         }
